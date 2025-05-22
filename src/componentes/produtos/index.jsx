@@ -36,7 +36,7 @@ export default function Produtos() {
       <div className="containerProdutos">
         <div className="cartButton">
           <button onClick={() => setShowCart(true)}>
-            <i class="fa-solid fa-cart-shopping"></i>
+            <i className="fa-solid fa-cart-shopping"></i>
           </button>
           <span className="cartCount">
             {cartItems.length > 0 && cartItems.length}
@@ -46,7 +46,7 @@ export default function Produtos() {
           <button
             onClick={() => window.open("https://api.whatsapp.com/send?phone=5567996752611&text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20pedido%20dos%20produtos%20da%20Vortex")}
             className="wppButton">
-            <i class="fa-brands fa-whatsapp"></i>
+            <i className="fa-brands fa-whatsapp"></i>
           </button>
         </div>
 
@@ -56,7 +56,7 @@ export default function Produtos() {
               className="closeCarrinho"
               onClick={() => setShowCart(false)}
             >
-              <i class="fa-solid fa-xmark"></i>
+              <i className="fa-solid fa-xmark"></i>
             </button>
             <Carrinho cartItems={cartItems} setCartItems={setCartItems} />
           </div>
