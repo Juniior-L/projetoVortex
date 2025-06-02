@@ -1,18 +1,25 @@
 import "./produto.css";
 import React from "react";
-import { produtos } from "./produtos";
+import { useContext } from "react";
+// import { produtos } from "./produtos";
+import { DataContext } from "../context/DATA.JSX";
 import Carrinho from "../carrinho";
 import { Button } from "@mui/material";
 
-import {ModalCadastro, ModalAtualizar, ModalLer, ModalRemover } from "../pages/outlet/modalCriar";
+import { ModalCadastro, ModalAtualizar, ModalLer, ModalRemover } from "../pages/outlet/modalCriar";
 
 export default function Produtos() {
+
+  const { produtos } = useContext(DataContext);
+
   const [cartItems, setCartItems] = React.useState([]);
   const [showCart, setShowCart] = React.useState(false);
   const [abrirCadastro, setAbrirCadastro] = React.useState(false);
   const [abrirAtualizar, setAbrirAtualizar] = React.useState(false);
   const [abrirLer, setAbrirLer] = React.useState(false);
   const [abrirRemover, setAbrirRemover] = React.useState(false);
+  const [produtoSelecionado, setProdutoSelecionado] = React.useState(null);
+
 
   function addItem(item) {
     if (cartItems.some((cartItem) => cartItem.nome === item.nome)) {
@@ -42,9 +49,9 @@ export default function Produtos() {
       </div>
 
       <ModalCadastro open={abrirCadastro} handleClose={() => setAbrirCadastro(false)} />
-      <ModalAtualizar open={abrirAtualizar} handleClose={() => setAbrirAtualizar(false)} />
+      <ModalAtualizar open={abrirAtualizar} handleClose={() => setAbrirAtualizar(false)} produto={produtoSelecionado}/>
       <ModalLer open={abrirLer} handleClose={() => setAbrirLer(false)} />
-      <ModalRemover open={abrirRemover} handleClose={() => setAbrirRemover(false)} />
+      <ModalRemover open={abrirRemover} handleClose={() => setAbrirRemover(false)} produto={produtoSelecionado}/>
 
       <div className="containerProdutos">
         <div className="cartButton">
@@ -74,12 +81,14 @@ export default function Produtos() {
         )}
 
         <div className="produtos">
-          {produtos.map((item) => (
-            <div key={item.nome} className="produto">
+          {produtos.map((item, index) => (
+            <div key={index} className="produto">
               <img src={item.imagem} alt={item.nome} />
               <h4>{item.nome}</h4>
               <p>{item.valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
               <button onClick={() => addItem(item)}>Comprar</button>
+              <button onClick={() => {setAbrirAtualizar(true);  setProdutoSelecionado(item);}} >Editar</button>
+              <button onClick={() => {setAbrirRemover(true);  setProdutoSelecionado(item);}} >Remover</button>
             </div>
           ))}
         </div>
