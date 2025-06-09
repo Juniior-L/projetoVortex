@@ -41,17 +41,20 @@ export default function Produtos() {
         <img src="src/assets/bannerportugues.png" alt="Banner" />
       </div>
 
-      <div style={{ display: "flex", gap: "10px", margin: "1rem" }}>
-        <Button variant="contained" onClick={() => setAbrirCadastro(true)}>Criar</Button>
-        <Button variant="outlined" onClick={() => setAbrirLer(true)}>Ler</Button>
-        <Button variant="outlined" onClick={() => setAbrirAtualizar(true)}>Atualizar</Button>
-        <Button variant="outlined" color="error" onClick={() => setAbrirRemover(true)}>Remover</Button>
+      <div className="banner">
+        <div style={{ display: "flex", gap: "10px", margin: "1rem" }}>
+          <Button variant="contained" onClick={() => setAbrirCadastro(true)}>Criar</Button>
+          <Button variant="outlined" onClick={() => setAbrirLer(true)}>Ler</Button>
+          <Button variant="outlined" onClick={() => setAbrirAtualizar(true)}>Atualizar</Button>
+          <Button variant="outlined" color="error" onClick={() => setAbrirRemover(true)}>Remover</Button>
+        </div>
+
+        <ModalCadastro open={abrirCadastro} handleClose={() => setAbrirCadastro(false)} />
+        <ModalAtualizar open={abrirAtualizar} handleClose={() => setAbrirAtualizar(false)} produto={produtoSelecionado} />
+        <ModalLer open={abrirLer} handleClose={() => setAbrirLer(false)} produto={produtoSelecionado} />
+        <ModalRemover open={abrirRemover} handleClose={() => setAbrirRemover(false)} produto={produtoSelecionado} />
       </div>
 
-      <ModalCadastro open={abrirCadastro} handleClose={() => setAbrirCadastro(false)} />
-      <ModalAtualizar open={abrirAtualizar} handleClose={() => setAbrirAtualizar(false)} produto={produtoSelecionado}/>
-      <ModalLer open={abrirLer} handleClose={() => setAbrirLer(false)} />
-      <ModalRemover open={abrirRemover} handleClose={() => setAbrirRemover(false)} produto={produtoSelecionado}/>
 
       <div className="containerProdutos">
         <div className="cartButton">
@@ -87,8 +90,9 @@ export default function Produtos() {
               <h4>{item.nome}</h4>
               <p>{item.valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
               <button onClick={() => addItem(item)}>Comprar</button>
-              <button onClick={() => {setAbrirAtualizar(true);  setProdutoSelecionado(item);}} >Editar</button>
-              <button onClick={() => {setAbrirRemover(true);  setProdutoSelecionado(item);}} >Remover</button>
+              <button onClick={() => { setAbrirAtualizar(true); setProdutoSelecionado(item); }} >Editar</button>
+              <button onClick={() => { setAbrirRemover(true); setProdutoSelecionado(item); }} >Remover</button>
+              <button onClick={() => { setAbrirLer(true); setProdutoSelecionado(item); }} >Detalhes</button>
             </div>
           ))}
         </div>

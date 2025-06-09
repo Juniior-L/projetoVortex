@@ -39,7 +39,7 @@ export function ModalCadastro({ open, handleClose }) {
     setImagem("");
     LerProdutos(setProdutos); // Atualiza a lista de produtos
     handleClose();
-    
+
     // Aqui você pode fazer um POST para sua API
     // axios.post('/produtos', produto)
 
@@ -121,17 +121,34 @@ export function ModalAtualizar({ open, handleClose, produto }) {
 }
 
 
-export function ModalLer({ open, handleClose }) {
+export function ModalLer({ open, handleClose, produto }) {
+
+  const { setProdutos } = React.useContext(DataContext);
+
+  const [id, setId] = React.useState(produto?.id || "");
+  const [nome, setNome] = React.useState(produto?.nome || "");
+  const [valor, setValor] = React.useState(produto?.valor || "");
+  const [imagem, setImagem] = React.useState(produto?.imagem || "");
+
+  React.useEffect(() => {
+    if (produto) {
+      setId(produto.id);
+      setNome(produto.nome);
+      setValor(produto.valor);
+      setImagem(produto.imagem);
+    }
+  }, [produto]);
+
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
         <Typography variant="h6" gutterBottom>Detalhes do Produto</Typography>
 
         <Stack spacing={2}>
-          <Typography><strong>Nome:</strong> Produto X</Typography>
-          <Typography><strong>Valor:</strong> R$ 100,00</Typography>
-          <Typography><strong>Imagem:</strong></Typography>
-          <img src="https://via.placeholder.com/150" alt="Produto" style={{ maxWidth: "100%" }} />
+          <Typography><strong>Nome:</strong> {nome}</Typography>
+          <Typography><strong>Valor:</strong> {valor}</Typography>
+          <Typography><strong>Imagem:</strong>{imagem}</Typography>
+          <img src={imagem} alt="Produto" style={{ maxWidth: "100%" }} />
 
           <Box display="flex" justifyContent="flex-end" mt={2}>
             <Button variant="outlined" onClick={handleClose}>Fechar</Button>
